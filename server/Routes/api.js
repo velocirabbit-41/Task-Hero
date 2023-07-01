@@ -10,7 +10,7 @@ const taskRouter = express.Router();
 taskRouter.get('/', taskController.getTasks, (req, res) => {
   //get and serve tasks
   //passing in res.locals.tasks, that is defined in our getTasks middleware
-  return res.status(200).json(res.locals.tasks);
+  return res.status(200).json(res.locals);
 });
 
 taskRouter.post('/:task', taskController.createTask, (req, res) => {
