@@ -1,7 +1,7 @@
 //requiring in express
 const express = require('express');
 //requiring in taskController from the controllers folder.
-const taskController = require('../controllers/taskController');
+const taskController = require('../Controllers/taskController');
 //requiring in the express router.
 const taskRouter = express.Router();
 
@@ -10,8 +10,33 @@ const taskRouter = express.Router();
 taskRouter.get('/', taskController.getTasks, (req, res) => {
   //get and serve tasks
   //passing in res.locals.tasks, that is defined in our getTasks middleware
-  res.status(200).json(res.locals.tasks);
+  return res.status(200).json(res.locals.tasks);
 });
 
-//[atch
-taskRouter.patch(':/takeTask', taskController.takeTasks, (req, res) => {});
+taskRouter.post('/:task', taskController.createTask, (req, res) => {
+  //post a new task
+  //passing in res.locals.task that gets assigned in our createTask middleware.
+  return res.status(200).json(res.locals.task);
+});
+
+//patch request from given endpoint, to controller logic
+// localhost:3000/task/mowtheLown
+taskRouter.patch('/:task', taskController.assignTasks, (req, res) => {
+  //assign task to user
+  //stored data in res obj in locals obj key made in MW, res.locals comes from middleware
+});
+
+taskRouter.patch('/:updateTask', taskController.updateTasks, (req, res) => {
+  //update given task
+  //store data from mw into the res.locals obj under assigned key from mw
+  return;
+});
+
+taskRouter.delete('/:deleteTask', taskController.deleteTask, (req, res) => {
+  //delete the task
+  //return status code (needs to be res.sendStatus if ALL we are sending is the status)
+  return res.status(200).json('deleted the task');
+});
+
+// localhost:3000/task/mowtheLown
+// localhost:3000/task/updateTasl/dothedishes
