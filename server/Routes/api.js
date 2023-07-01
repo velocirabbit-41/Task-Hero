@@ -21,18 +21,19 @@ taskRouter.post('/:task', taskController.createTask, (req, res) => {
 
 //patch request from given endpoint, to controller logic
 // localhost:3000/task/mowtheLown
-taskRouter.patch('/:task', taskController.assignTasks, (req, res) => {
+taskRouter.patch('/:task', taskController.assignTask, (req, res) => {
   //assign task to user
   //stored data in res obj in locals obj key made in MW, res.locals comes from middleware
+  return res.status(200).json(res.locals.task);
 });
 
-taskRouter.patch('/:updateTask', taskController.updateTasks, (req, res) => {
+taskRouter.patch('/:task', taskController.updateTask, (req, res) => {
   //update given task
   //store data from mw into the res.locals obj under assigned key from mw
-  return;
+  return res.status(200).json(res.locals.task);
 });
 
-taskRouter.delete('/:deleteTask', taskController.deleteTask, (req, res) => {
+taskRouter.delete('/:task', taskController.deleteTask, (req, res) => {
   //delete the task
   //return status code (needs to be res.sendStatus if ALL we are sending is the status)
   return res.status(200).json('deleted the task');
