@@ -17,11 +17,11 @@ taskRouter.get('/', taskController.getTasks, (req, res) => {
   return res.status(200).json(res.locals.test);
 });
 
-// taskRouter.post('/:task', taskController.createTask, (req, res) => {
-//   //post a new task
-//   //passing in res.locals.task that gets assigned in our createTask middleware.
-//   return res.status(200).json(res.locals.task);
-// });
+taskRouter.post('/', taskController.createTask, (req, res) => {
+  //post a new task
+  //passing in res.locals.task that gets assigned in our createTask middleware.
+  return res.status(200).json(res.locals.taskCreated);
+});
 
 // //patch request from given endpoint, to controller logic
 // // localhost:3000/task/mowtheLown
