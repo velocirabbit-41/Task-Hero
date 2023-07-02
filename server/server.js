@@ -7,11 +7,11 @@ app.use(express.json());
 //
 app.use(express.static(path.join(__dirname, '../src')));
 
-// app.use('/', (req, res) => {
+// app.use('/', (req, rs) => {
 //   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 // });
 
-const taskRouter = require('./Routes/api');
+const taskRouter = require('./routes/api');
 
 //ROUTE HANDLERS DEFINED
 app.use('/task', taskRouter);
