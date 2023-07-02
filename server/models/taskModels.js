@@ -29,7 +29,7 @@ module.exports = {
   Get Current Tasks
   =============
 
-  const queryText = 'select * from tasks'
+  const queryText = 'SELECT * FROM tasks'
 
   =============
   Create Task
