@@ -11,7 +11,7 @@ const taskController = {
     const queryText = 'SELECT * FROM tasks';
     db.query(queryText)
       .then((data) => {
-        console.log('data', data);
+        // console.log('data', data);
         res.locals.test = data.rows;
         return next();
       })
@@ -30,13 +30,14 @@ taskController.createTask = (req, res, next) => {
   const queryText =
     'INSERT INTO tasks (created_by, status, task_content) VALUES ($1, $2, $3) RETURNING *;';
   const { creator, task, status } = req.body;
-  console.log('creator', creator);
-  console.log('task', task);
-
-  console.log('status', status);
-
-  //matches elems of arr with values order in arr due to query INSERT INTO
+  // console.log('req.body', req.body);
+  // console.log('creator', creator);
+  // console.log('task', task);
+  // console.log('status', status);
+  //matches elems of arr with values order in arr due to query INSERT INTO ...dollar sign values refer to args passed in queryparams
   const queryParams = [creator, status, task];
+  console.log('queryParams', queryParams);
+
   db.query(queryText, queryParams)
     .then((data) => {
       if (data) {
@@ -55,24 +56,24 @@ taskController.createTask = (req, res, next) => {
     });
 };
 
-taskController.changeStatus = (req, res, next) => {
-  const queryText = 'UPDATE tasks SET status=$1 WHERE task_id=$2;';
-  const { task, user, status, task_id } = req.body;
-  const queryParams = [status, task_id];
-  db.query(queryText, queryParams)
-    .then((data) => {
-      res.locals.statusChanged = data.rows;
-      return next();
-    })
-    .catch((error) => {
-      const mwError = {
-        log: 'error in the taskController.changeStatus middleware function',
-        status: 400,
-        message: { error: 'was not able to acquire task', error },
-      };
-      return next(mwError);
-    });
-};
+// taskController.changeStatus = (req, res, next) => {
+//   const queryText = 'UPDATE tasks SET status=$1 WHERE task_id=$2;';
+//   const { task, user, status, task_id } = req.body;
+//   const queryParams = [status, task_id];
+//   db.query(queryText, queryParams)
+//     .then((data) => {
+//       res.locals.statusChanged = data.rows;
+//       return next();
+//     })
+//     .catch((error) => {
+//       const mwError = {
+//         log: 'error in the taskController.changeStatus middleware function',
+//         status: 400,
+//         message: { error: 'was not able to acquire task', error },
+//       };
+//       return next(mwError);
+//     });
+// };
 
 taskController.editTask = (req, res, next) => {
   const queryText = 'UPDATE tasks SET task_content=$1 WHERE task_id=$2;';
