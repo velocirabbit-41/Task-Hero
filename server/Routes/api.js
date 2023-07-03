@@ -31,17 +31,17 @@ taskRouter.post('/', taskController.createTask, (req, res) => {
 //   return res.status(200).json(res.locals.task);
 // });
 
-// taskRouter.patch('/:task', taskController.updateTask, (req, res) => {
-//   //update given task
-//   //store data from mw into the res.locals obj under assigned key from mw
-//   return res.status(200).json(res.locals.task);
-// });
+taskRouter.patch('/', taskController.updateUserAndStatus, (req, res) => {
+  //update given task
+  //store data from mw into the res.locals obj under assigned key from mw
+  return res.status(200).json(res.locals.taskEdited);
+});
 
-// taskRouter.delete('/:task', taskController.deleteTask, (req, res) => {
-//   //delete the task
-//   //return status code (needs to be res.sendStatus if ALL we are sending is the status)
-//   return res.status(200).json('deleted the task');
-// });
+taskRouter.delete('/', taskController.deleteTask, (req, res) => {
+  //delete the task
+  //return status code (needs to be res.sendStatus if ALL we are sending is the status)
+  return res.status(200).json(res.locals.taskDeleted);
+});
 
 // // localhost:3000/task/mowtheLown
 // // localhost:3000/task/updateTasl/dothedishes

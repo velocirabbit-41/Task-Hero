@@ -75,47 +75,53 @@ taskController.createTask = (req, res, next) => {
 //     });
 // };
 
-taskController.editTask = (req, res, next) => {
-  const queryText = 'UPDATE tasks SET task_content=$1 WHERE task_id=$2;';
-  const { task, user, status, task_id } = req.body;
-  const queryParams = [task, task_id];
+taskController.updateUserAndStatus = (req, res, next) => {
+  const queryText =
+    'UPDATE tasks SET status = $1, assigned_to = $2 WHERE task_id=$3 RETURNING *;';
+  const { task_content, user, status, task_id } = req.body;
+  console.log('req.body', req.body);
+  const queryParams = [status, user, task_id];
+  console.log('queryParams', queryParams);
   db.query(queryText, queryParams)
     .then((data) => {
-      res.locals.taskEdited = data.rows;
-      return next();
+      console.log('data', data);
+      if (data) {
+        res.locals.taskEdited = data.rows;
+        return next();
+      }
     })
     .catch((error) => {
       const mwError = {
         log: 'error in the taskController.editTask middleware function',
         status: 400,
-        message: { error: 'was not able to acquire task', error },
+        message: { error: 'was not able to edit task', error },
       };
       return next(mwError);
     });
 };
 
-taskController.assignTask = (req, res, next) => {
-  const queryText = 'UPDATE tasks SET assigned_to=$1 WHERE task_id=$2;';
-  const { task, user, status, task_id } = req.body;
-  const queryParams = [user, task_id];
-  db.query(queryText, queryParams)
-    .then((data) => {
-      console.log(data.rows);
-      res.locals.taskAssigned = data.rows;
-      return next();
-    })
-    .catch((error) => {
-      const mwError = {
-        log: 'error in the taskController.assignTask middleware function',
-        status: 400,
-        message: { error: 'was not able to acquire task', error },
-      };
-      return next(mwError);
-    });
-};
-
+// taskController.assignTask = (req, res, next) => {
+//   const queryText = 'UPDATE tasks SET assigned_to=$1 WHERE task_id=$2;';
+//   const { task, user, status, task_id } = req.body;
+//   const queryParams = [user, task_id];
+//   db.query(queryText, queryParams)
+//     .then((data) => {
+//       console.log(data.rows);
+//       res.locals.taskAssigned = data.rows;
+//       return next();
+//     })
+//     .catch((error) => {
+//       const mwError = {
+//         log: 'error in the taskController.assignTask middleware function',
+//         status: 400,
+//         message: { error: 'was not able to acquire task', error },
+//       };
+//       return next(mwError);
+//     });
+// };
+///onereducer update task send an obj with stuff already updated
 taskController.deleteTask = (req, res, next) => {
-  const queryText = 'DELETE FROM tasks WHERE task_id=$1;';
+  const queryText = 'DELETE FROM tasks WHERE task_id=$1 RETURNING *;';
   const { task, user, status, task_id } = req.body;
   const queryParams = [task_id];
   db.query(queryText, queryParams)
@@ -128,7 +134,7 @@ taskController.deleteTask = (req, res, next) => {
       const mwError = {
         log: 'error in the taskController.deleteTask middleware function',
         status: 400,
-        message: { error: 'was not able to acquire task', error },
+        message: { error: 'was not able to delete task', error },
       };
       return next(mwError);
     });
