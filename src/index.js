@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import App from './components/App.jsx';
-import store from './store';
+// import store from './store';
 
 // const title = document.createElement('h3');
 // title.textContent = 'Webpack made easy!';
@@ -12,7 +12,6 @@ import store from './store';
 const root = createRoot(document.getElementById('root'));
 root.render(
   // wrap the App in the Provider Component and pass in the store
-  <Provider store={store}>
-    <App />
-  </Provider>
+
+  <App />
 );
