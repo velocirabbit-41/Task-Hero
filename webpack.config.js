@@ -18,22 +18,22 @@ module.exports = {
   ],
 
   mode: process.env.NODE_ENV,
-
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'], //loaders allow us to translate? into js
+        test: /.(css|scss)$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
@@ -41,9 +41,6 @@ module.exports = {
         use: ['file-loader'],
       },
     ],
-    // resolve: {
-    //   extensions: ['.js', '.jsx'],
-    // },
   },
 
   devServer: {
