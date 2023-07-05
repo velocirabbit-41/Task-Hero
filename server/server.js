@@ -5,13 +5,13 @@ const app = express();
 const PORT = 3000;
 app.use(express.json());
 //
-app.use(express.static(path.join(__dirname, '../src')));
+// app.use(express.static(path.join(__dirname, '../src')));
 
-// app.use('/', (req, rs) => {
-//   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
-// });
+app.use('/', (req, res) => {
+  return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+});
 
-const taskRouter = require('./routes/task');
+const taskRouter = require('./routes/task.js');
 
 //ROUTE HANDLERS DEFINED
 app.use('/task', taskRouter);
@@ -39,3 +39,5 @@ app.use((error, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Listening on Port:${PORT}!`);
 });
+
+module.exports = app;

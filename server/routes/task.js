@@ -2,10 +2,7 @@
 const express = require('express');
 const path = require('path');
 //requiring in taskController from the controllers folder.
-const taskController = require(path.resolve(
-  __dirname,
-  '../controllers/taskController'
-));
+const taskController = require('../controllers/taskController.js');
 //requiring in the express router.
 const taskRouter = express.Router();
 

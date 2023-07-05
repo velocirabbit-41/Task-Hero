@@ -25,9 +25,33 @@ img {
 
 .assignedTo {
   background-color: aliceblue;
+  border: solid 3px black;
 }
 
 .cardBtn {
   background-color: blue;
   color: whitesmoke;
+}
+
+.nav-bar {
+  background-color: darkblue;
+  color: whitesmoke;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-btn {
+  color: whitesmoke;
+  background-color: green;
+}
+
+.task-container {
+  background-color: blanchedalmond;
+}
+
+.task-display {
+  background-color: yellow;
+}
+
+.task-card {
+  background-color: grey;
 }
