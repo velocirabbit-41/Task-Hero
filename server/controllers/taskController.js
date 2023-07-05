@@ -6,6 +6,7 @@ const env = require('dotenv').config();
 
 //declare an empty obj to call methods on
 const taskController = {
+  // CRUD: Read
   getTasks: (req, res, next) => {
     //define query
     const queryText = 'SELECT * FROM tasks';
@@ -26,6 +27,7 @@ const taskController = {
   },
 };
 
+// CRUD: Create
 taskController.createTask = (req, res, next) => {
   const queryText =
     'INSERT INTO tasks (created_by, status, task_content) VALUES ($1, $2, $3) RETURNING *;';
@@ -56,6 +58,7 @@ taskController.createTask = (req, res, next) => {
     });
 };
 
+
 // taskController.changeStatus = (req, res, next) => {
 //   const queryText = 'UPDATE tasks SET status=$1 WHERE task_id=$2;';
 //   const { task, user, status, task_id } = req.body;
@@ -75,6 +78,7 @@ taskController.createTask = (req, res, next) => {
 //     });
 // };
 
+// CRUD: Update
 taskController.updateUserAndStatus = (req, res, next) => {
   const queryText =
     'UPDATE tasks SET status = $1, assigned_to = $2 WHERE task_id=$3 RETURNING *;';
@@ -100,6 +104,7 @@ taskController.updateUserAndStatus = (req, res, next) => {
     });
 };
 
+// CRUD: Update
 // taskController.assignTask = (req, res, next) => {
 //   const queryText = 'UPDATE tasks SET assigned_to=$1 WHERE task_id=$2;';
 //   const { task, user, status, task_id } = req.body;
@@ -120,6 +125,8 @@ taskController.updateUserAndStatus = (req, res, next) => {
 //     });
 // };
 ///onereducer update task send an obj with stuff already updated
+
+// CRUD: Delete
 taskController.deleteTask = (req, res, next) => {
   const queryText = 'DELETE FROM tasks WHERE task_id=$1 RETURNING *;';
   const { task, user, status, task_id } = req.body;

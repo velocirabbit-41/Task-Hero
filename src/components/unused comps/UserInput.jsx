@@ -1,6 +1,6 @@
 import React from 'react';
 //import children
-import TaskContainer from './TaskContainer.jsx'
+import TaskContainer from '../TaskContainer.jsx'
 
 const UserInput = (props) => {
     return(

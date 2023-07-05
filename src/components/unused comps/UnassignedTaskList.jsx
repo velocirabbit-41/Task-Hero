@@ -1,5 +1,5 @@
 import React from 'react';
-import store from '../store';
+import store from '../../store';
 
 import UnassignedTask from './UnassignedTask.jsx';
 

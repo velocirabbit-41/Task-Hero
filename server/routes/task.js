@@ -20,7 +20,7 @@ taskRouter.get('/', taskController.getTasks, (req, res) => {
 taskRouter.post('/', taskController.createTask, (req, res) => {
   //post a new task
   //passing in res.locals.task that gets assigned in our createTask middleware.
-  return res.status(200).json(res.locals.taskCreated);
+  return res.status(202).json(res.locals.taskCreated);
 });
 
 // //patch request from given endpoint, to controller logic

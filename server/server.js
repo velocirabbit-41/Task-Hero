@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, '../src')));
 //   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 // });
 
-const taskRouter = require('./routes/api');
+const taskRouter = require('./routes/task');
 
 //ROUTE HANDLERS DEFINED
 app.use('/task', taskRouter);
