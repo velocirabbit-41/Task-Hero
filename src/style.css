@@ -15,4 +15,19 @@ img {
   max-height: 500px;
 }
 
+.taskName {
+  background-color: aliceblue;
+}
 
+.createdBy {
+  background-color: aliceblue;
+}
+
+.assignedTo {
+  background-color: aliceblue;
+}
+
+.cardBtn {
+  background-color: blue;
+  color: whitesmoke;
+}

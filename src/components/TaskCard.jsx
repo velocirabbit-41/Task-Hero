@@ -1,42 +1,23 @@
 import React from 'react';
-// import {useDispatch} from 'react-redux';
-import * as actions from '../actions/actions.js';
-import store from '../store';
 
-const TaskCard = (prop) => {
-  // take in the task object as prop.task
-  // const dispatch = useDispatch();
-  //   const user = store.getState().currentUser;
+const TaskCard = (props) => {
 
-  const demoteTask = () => {
-    if (prop.task.status > 1) {
-      const newStatus = prop.task.status - 1;
-      const newObj = { ...prop.task, status: newStatus };
-      // return dispatch(action.updateTaskActionCreator(newObj))
-    }
+  const editCard = () => {
+
   };
 
-  const changeUser = () => {
-    // return dispatch(actions.takeTaskActionCreator(user))
-  };
+  const markDone = () => {
 
-  const promoteTask = () => {
-    if (prop.task.status < 4) {
-      const newStatus = prop.task.status + 1;
-      const newObj = { ...prop.task, status: newStatus };
-      // dispatch(action.updateTaskActionCreator(newObj))
-    }
   };
 
   return (
     <div>
-      <p className='taskName'> Task: {prop.task.task} </p>
-      <p className='createdBy'> Created by: {prop.task.creator}</p>
-      <p className='assignedTo'> Assigned to: {prop.task.user}</p>
+      <p className='taskName'> Task: {props.taskName}</p>
+      <p className='createdBy'> Created by: {props.createdBy}</p>
+      <p className='assignedTo'> Assigned to: {props.assigned}</p>
       <div className='buttons'>
-        <button onClick={demoteTask()}></button>
-        <button onClick={changeUser()}>Change User</button>
-        <button onClick={promoteTask()}></button>
+        <button className="cardBtn" onClick={editCard}>Edit</button>
+        <button className="cardBtn" onClick={markDone}>Mark Done</button>
       </div>
     </div>
   );

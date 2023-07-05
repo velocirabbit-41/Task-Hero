@@ -1,12 +1,13 @@
 import React from 'react';
 //import the child component(s)
-import UserInput from './UserInput.jsx'
+import Header from './Header'
+import TaskContainer from './TaskContainer'
 
 const App = () => {
     return(
       <div id='app'>
-       this is in our App component!
-       <UserInput/>
+       <Header/>
+       <TaskContainer/>
       </div>
     );
   }

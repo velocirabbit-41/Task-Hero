@@ -1,7 +1,7 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux';
-import * as actions from '../actions/actions.js';
-import store from '../store';
+import * as actions from '../../actions/actions.js';
+import store from '../../store.js';
 
 const UnassignedTask = (props) => {
   //props.task is the task object

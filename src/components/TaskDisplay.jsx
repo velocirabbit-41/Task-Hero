@@ -1,35 +1,42 @@
-import React from 'react';
-import UserRows from './UserRows.jsx';
-import Base from './Base.jsx';
-import store from '../store';
+import React, {useEffect, useState} from 'react';
+import TaskCard from './TaskCard';
 
-const TaskDisplay = (props) => {
-  //arr of components where each component is specific to one user,
-  //and each component has a property for that user array of tasks
+const TaskDisplay = () => {
+  const [taskList, setTaskList] = useState([]);
+  // const taskList = [];
 
-  // create rows for each user in userArray
-  // const state = store.getState();
+  // access list of all tasks from DB, get an arr of objs
+  useEffect(() => {
+    const fetchTasks = async () => {
+      // missing the route. TBD with the DB from Noel or created by us. See the controller page
+      const tasks = await fetch('http://localhost:3000/task/'); 
+      const parseTask = await tasks.json();
+      setTaskList(parseTask);
+    } 
+  }, []);
 
-  // const userRows = [];
-  // // use a for loop;
-  // for (let user of state.usersList) {
-  //     // get each task for each user
-  //     // get it from assigned_to property
-  //     const userSpecificTasks = [];
+  const allCards = [];
 
-  //     state.arrOfTasks.forEach( task => {
-  //         if (task.assigned_to === user) userSpecficTasks.push(task)
-  //     })
+  for (let i = 0; i < taskList.length; i++) {
+    allCards.push(el => <TaskCard 
+      taskName={taskList[i].taskName} 
+      assigned={taskList[i].assigned} 
+      createdBy={taskList[i].createdBy}  
+      dueDate={taskList[i].dueDate}  
+      project={taskList[i].project}  
+      owner={taskList[i].owner}  
+      />)
+  }
 
-  //     userRows.push(<UserRows name={user} tasks={userSpecificTasks} />)
-  // }
-  //entire array with an object for each task
-  //filter thru that to make separate arrays for each user
-  //render each separate user array?
 
+    // turn this arr of objs into an array of divs 
+      // each div is created in TaskCard and pushed into the taskList array
+
+
+  // create the list of divs from taskList to be rendered
   return (
     <div className='task-display'>
-      <Base />
+      {allCards}
     </div>
   );
 };
