@@ -1,3 +1,0 @@
-# WPPG
-
-I am here
