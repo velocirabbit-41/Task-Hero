@@ -17,7 +17,7 @@ const Header = () => {
     <div>
       {/* <button onClick={getPageClicker}>login</button> */}
       <button onclick = "window.location.href='www.linktothepage.com';">
-        login
+        login/signup
       </button>
     </div>
   )

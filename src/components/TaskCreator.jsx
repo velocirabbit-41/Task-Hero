@@ -3,6 +3,10 @@ import React from 'react';
 
 
 const TaskCreator = () => {
+  const sendToDB = () => {
+    // send info from the form to the DB on click 
+  }
+
     return(
       <div className='task-creator'>
         <form>
@@ -24,7 +28,7 @@ const TaskCreator = () => {
           <label for="other">Other, per SQL DB</label><br/>
           <input type="text" id="otherid"></input><br/>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" onClick={sendToDB} value="Submit" />
         </form>
       </div>
     );

@@ -8,7 +8,8 @@ const TaskDisplay = () => {
   // access list of all tasks from DB, get an arr of objs
   useEffect(() => {
     const fetchTasks = async () => {
-      const tasks = await fetch('');
+      // missing the route. TBD with the DB from Noel or created by us. See the controller page
+      const tasks = await fetch('http://localhost:3000/task/'); 
       const parseTask = await tasks.json();
       setTaskList(parseTask);
     } 

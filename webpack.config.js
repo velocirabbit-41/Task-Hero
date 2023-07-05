@@ -54,7 +54,7 @@ module.exports = {
       publicPath: 'build',
     },
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/task': 'http://localhost:3000',
     },
   },
 };
