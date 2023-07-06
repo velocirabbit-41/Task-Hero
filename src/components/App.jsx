@@ -6,9 +6,11 @@ import '../style.css';
 
 const App = () => {
   return (
-    <div id='app'>
+    <div id='root'>
       <Header />
       <TaskContainer />
+      <br/>
+      <p>a project by Alana, Cameron, Dawit, and Josh</p>
     </div>
   );
 };
