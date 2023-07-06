@@ -14,7 +14,10 @@ const Header = () => {
 
   return (
     <div className='nav-bar'>
-      <button className='login-btn'>login/signup</button>
+      <div className='spacer'></div>
+      <div className='spacer'>Velocirabbits</div>
+      <div className='login-btn'>Login & Signup</div>
+      {/* <button className='login-btn'>login/signup</button> */}
     </div>
   );
 };
