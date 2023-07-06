@@ -1,15 +1,15 @@
 import React from 'react';
 //import children
 import TaskCreator from './TaskCreator.jsx';
-import TaskDisplay from './TaskDisplay.jsx'
+import TaskDisplay from './TaskDisplay.jsx';
 
 const TaskContainer = (props) => {
-    return(
-      <div className='task-container'>
-        <TaskCreator/>
-        <TaskDisplay/>
-      </div>
-    );
-  }
+  return (
+    <div className='task-container'>
+      <TaskCreator />
+      <TaskDisplay />
+    </div>
+  );
+};
 
-  export default TaskContainer;
+export default TaskContainer;
