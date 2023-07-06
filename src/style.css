@@ -19,6 +19,7 @@ h3 {
   color: blue;
   padding: 20px;
   font-size: 24px;
+  text-align: left;
 }
 
 img {
@@ -89,6 +90,7 @@ form {
   justify-content: left;
   align-items: left;
   margin-top: 20px;
+  border-radius: 5px;
 }
 
 .form-items {
@@ -140,7 +142,6 @@ form {
 }
 
 .cardBtn {
-
   background-color: blue;
   color: whitesmoke;
   margin: 5px;
@@ -149,8 +150,7 @@ form {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 3px;;
-  /* width: 50px; */
-
+  cursor: pointer;
 }
 
 .taskName {

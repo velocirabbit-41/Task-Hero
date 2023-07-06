@@ -9,6 +9,7 @@ const taskController = {
   // CRUD: Read
   getTasks: (req, res, next) => {
     //define query
+    console.log("get tasks called")
     const queryText = 'SELECT * FROM tasks';
     db.query(queryText)
       .then((data) => {

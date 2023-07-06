@@ -1,24 +1,34 @@
 const express = require('express');
 const path = require('path');
-
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
+
+
+// const corsOptions = {
+//   origin: 'http://localhost:8080',
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
+
+// Cross-origin Resource Sharing
+app.use(cors());
 app.use(express.json());
 //
 // app.use(express.static(path.join(__dirname, '../src')));
 
-app.use('/', (req, res) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
-});
+// app.use('/', (req, res) => {
+//   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+// });
 
 const taskRouter = require('./routes/task.js');
 
 //ROUTE HANDLERS DEFINED
 app.use('/task', taskRouter);
 
-app.use('/', (req, res) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
-});
+// app.use('/', (req, res) => {
+//   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+// });
 //unknown route handler
 app.use((req, res) => res.sendStatus(404));
 

@@ -10,7 +10,6 @@ const TaskContainer = (props) => {
   return (
     isAuthenticated && (
       <div className='task-container'>
-        this is the task container
         <TaskCreator />
         <TaskDisplay />
       </div>

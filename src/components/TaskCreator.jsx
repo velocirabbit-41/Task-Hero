@@ -1,84 +1,68 @@
-import React from 'react';
-
-
+import React, { useState } from 'react';
+import * as ReactDOM from 'react-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const TaskCreator = () => {
-  const sendToDB = () => {
+  console.log('task creator test')
+
+  const [data, setData] = useState({
+    task : '',
+    assignedTo : ''
+  });
+
+  const { user } = useAuth0();
+
+  const sendToDB = (e) => {
+    console.log('sendToDB ran');
+    // e.preventDefault();
     // send info from the form to the DB on click 
+    
+    // collect info from form
+    console.log(user.name)
+    const userName = user.name;
+    const taskObj = {};
+    taskObj.creator = userName;
+    taskObj.user = document.getElementById("assigned").value;
+    taskObj.task = document.getElementById("task").value;
+    taskObj.status = 0;
+    console.log("taskObj",taskObj);
   }
 
-    return(
+  return(
+    // <div className='task-creator'>
+    <div >
+      <h3>Create a new task</h3>
       <div className='task-creator'>
-        <h3>Create a new task</h3>
-        <div className='task-creator'>
 
-          <form>
-            <div className="new-col">
-              <label for="task">Task name</label> <br/><br/>
-              <label for="date">Due date</label> <br/> <br/>
-              <label for="assigned">Assigned to</label> <br/><br/>
-              <label for="owner">Project Owner</label> <br/><br/>
-              <label for="project">Project</label> <br/><br/>
-              <label for="other">Other, per SQL DB</label> <br/><br/>
-            </div>
+      {/* onSubmit="return false" */}
+      <form >
+          <div className="new-col">
+            <label htmlFor="task">Task name</label> <br/><br/>
+            {/* <label htmlFor="date">Due date</label> <br/> <br/> */}
+            <label htmlFor="assigned">Assigned to</label> <br/><br/>
+            {/* <label htmlFor="owner">Project Owner</label> <br/><br/> */}
+          </div>
 
-            <div className="new-col">
-              <input type="text" id="task"></input><br/><br/>
-              <input type="date" id="date"></input><br/><br/>
-              <input type="text" id="assigned"></input><br/><br/>
-              <input type="text" id="owner"></input><br/><br/>
-              <input type="text" id="proj"></input><br/><br/>
-              <input type="text" id="otherid"></input><br/><br/>
-            </div>
+          <div className="new-col">
+            <input type="text" id="task" value= {data.task} onChange={(e) => setData({...data, task: e.target.value})}></input><br/><br/>
+            {/* <input type="date" id="date"></input><br/><br/> */}
+            <input type="text" id="assigned" value={data.assignedTo} onChange = {(e) => setData({...data, assignedTo : e.target.value})}></input><br/><br/>
+            {/* <input type="text" id="owner"></input><br/><br/> */}
+          </div>
 
-            <div className="form-items">
-              <input type="submit" onClick={sendToDB} value="Submit" />
-            </div>
-          </form>
-
-          {/* <form>
-            <div className="form-items">
-              <label className="form-items" for="task">Task name</label>
-              <input className="form-items" type="text" id="task"></input><br/>
-            </div>
-            
-            <div className="form-items">
-              <label for="date">Due date</label>
-              <input type="date" id="date"></input><br/>
-            </div>
-
-            <div className="form-items">
-              <label for="assigned">Assigned to</label>
-              <input type="text" id="assigned"></input><br/>
-            </div>
-            
-            <div className="form-items">
-              <label for="owner">Project Owner</label>
-              <input type="text" id="owner"></input><br/>
-            </div>
-            
-            <div className="form-items">
-              <label for="project">Project</label>
-              <input type="text" id="proj"></input><br/>
-            </div>
-            
-            <div className="form-items">
-              <label for="other">Other, per SQL DB</label>
-              <input type="text" id="otherid"></input><br/>
-            </div>
-
-            <div className="form-items">
-              <input type="submit" onClick={sendToDB} value="Submit" />
-            </div>
-          </form> */}
-
-        </div>
+          <div className="form-items">
+            {/* <button type='submit' >Submit</button> */}
+            {/* <input type="submit"  onSubmit={sendToDB} value="Submit" /> */}
+          </div>
+        </form>
+        <button type="submit"  onClick={sendToDB}>a button here</button>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // note for new task submission: we need to confirm that the submit button is going to collect all the info from the form that we need to sent to SQL
 
 
 
-  export default TaskCreator;
+export default TaskCreator;

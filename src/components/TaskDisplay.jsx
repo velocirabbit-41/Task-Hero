@@ -3,52 +3,66 @@ import TaskCard from './TaskCard';
 
 const TaskDisplay = () => {
   const [taskList, setTaskList] = useState([]);
-  // const taskList = [];
 
-  // access list of all tasks from DB, get an arr of objs
-  // useEffect(() => {
-  //   // const fetchTasks = async () => {
-  //   //   // missing the route. TBD with the DB from Noel or created by us. See the controller page
-  //   //   const tasks = await fetch('http://localhost:3000/task/');
-  //   //   const parseTask = await tasks.json();
-  //   //   setTaskList(parseTask);
-  //   // };
-  //   // fetchTasks();
-  // }, []);
+  useEffect(() => {
+    // GET request using fetch inside useEffect React hook
+    console.log('use Effect')
+    fetch('http://localhost:3000/task/')
+        .then(response => response.json())
+        // .then(data => console.log("hey, friend")setTaskList(data))
+        .then(data => {
+          console.log(data);
+          console.log("hey, friend")
+          setTaskList(data)
+        })
+        .catch(err => {
+          return {
+            log: 'error fetching task cards from TaskDisplay component',
+            status: 400,
+            message: { err: 'Unable to get list of tasks', err },
+          }
+        })
 
-  // const allCards = [];
+      }, []); 
 
-  // for (let i = 0; i < taskList.length; i++) {
-  //   allCards.push((el) => (
-  //     <TaskCard
-  //     // taskName={taskList[i].taskName}
-  //     // assigned={taskList[i].assigned}
-  //     // createdBy={taskList[i].createdBy}
-  //     // dueDate={taskList[i].dueDate}
-  //     // project={taskList[i].project}
-  //     // owner={taskList[i].owner}
-  //     />
-  //   ));
-  // }
+  const allCards = [];
 
-  // turn this arr of objs into an array of divs
-  // each div is created in TaskCard and pushed into the taskList array
+  taskList.forEach( el => console.log(el.task_id));
 
-  // create the list of divs from taskList to be rendered
+  taskList.forEach( el => {
+    allCards.push(
+      <TaskCard
+      task_content={el.task_content}
+      assigned_to={el.assigned_to}
+      created_by={el.created_by}
+      task_id={el.task_id}
+      status={el.status}
+      />
+    )
+  })
+  console.log(allCards);
+
+
+  //////////////////// FROM DAWIT ////////////////////////////    
+  
+    // fetch request http//localhost/3000/task
+    // get request
+
+    // useEffect((),[]) // use to update state on load
+
+    // fetch (http; local/task) // make sure we have a header when we need it
+    //   .then((dataReceved) => {
+    //     console.log(dataReceved)
+    //   })
+    //   .catch(err => {
+    //   })
+
   return (
-    <div className='task-display'>
+    <div >
       <h3>All tasks</h3>
       <div className='task-display'>
+        {allCards}
         <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        {/* {allCards} */}
       </div>
     </div>
   );
