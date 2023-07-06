@@ -4,6 +4,7 @@ const path = require('path');
 const db = require('../models/taskModels'); // update to URI? depends on db config
 const fs = require('fs');
 
+// create path to test JSON file
 const testJsonFile = path.resolve(__dirname, './taskController.test.json');
 
 // describe block for taskController tests
