@@ -24,7 +24,7 @@ const TaskDisplay = () => {
         })
 
       }, []); 
-
+ 
   const allCards = [];
 
   taskList.forEach( el => console.log(el.task_id));
@@ -69,3 +69,4 @@ const TaskDisplay = () => {
 };
 
 export default TaskDisplay;
+ 
