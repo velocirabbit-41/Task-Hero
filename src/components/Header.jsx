@@ -26,6 +26,10 @@ const Header = () => {
           {/* <Profile /> */}
         </>
       )}
+      <div className='spacer'></div>
+      <div className='spacer'>Velocirabbits</div>
+      <div className='login-btn'>Login & Signup</div>
+      {/* <button className='login-btn'>login/signup</button> */}
     </div>
   );
 };
