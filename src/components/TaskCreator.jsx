@@ -37,10 +37,10 @@ const TaskCreator = () => {
       {/* onSubmit="return false" */}
       <form >
           <div className="new-col">
-            <label for="task">Task name</label> <br/><br/>
-            {/* <label for="date">Due date</label> <br/> <br/> */}
-            <label for="assigned">Assigned to</label> <br/><br/>
-            {/* <label for="owner">Project Owner</label> <br/><br/> */}
+            <label htmlFor="task">Task name</label> <br/><br/>
+            {/* <label htmlFor="date">Due date</label> <br/> <br/> */}
+            <label htmlFor="assigned">Assigned to</label> <br/><br/>
+            {/* <label htmlFor="owner">Project Owner</label> <br/><br/> */}
           </div>
 
           <div className="new-col">
