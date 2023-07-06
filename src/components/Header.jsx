@@ -17,6 +17,8 @@ const Header = () => {
   // const { logout, isAuthenticated } = useAuth0();
   return (
     <div className='nav-bar'>
+      <div className='spacer'></div>
+      <div className='spacer'>Velocirabbits</div>
       {error && <p>Authentication Error</p>}
       {!error && isLoading && <p>Loading...</p>}
       {!error && !isLoading && (
@@ -26,9 +28,7 @@ const Header = () => {
           {/* <Profile /> */}
         </>
       )}
-      <div className='spacer'></div>
-      <div className='spacer'>Velocirabbits</div>
-      <div className='login-btn'>Login & Signup</div>
+      {/* <div className='login-btn'>Login & Signup</div> */}
       {/* <button className='login-btn'>login/signup</button> */}
     </div>
   );
@@ -37,7 +37,7 @@ const Header = () => {
 const LogoutButton = () => {
   const { logout, isAuthenticated } = useAuth0();
 
-  return isAuthenticated && <button onClick={() => logout()}>Sign Out</button>;
+  return isAuthenticated && <div className='login-btn' onClick={() => logout()}>Sign Out</div>;
 };
 
 const LoginButton = () => {
@@ -45,7 +45,7 @@ const LoginButton = () => {
 
   return (
     !isAuthenticated && (
-      <button onClick={() => loginWithRedirect()}>Sign In</button>
+      <div className='login-btn' onClick={() => loginWithRedirect()}>Sign In</div>
     )
   );
 };

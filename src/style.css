@@ -89,6 +89,7 @@ form {
   justify-content: left;
   align-items: left;
   margin-top: 20px;
+  border-radius: 5px;
 }
 
 .form-items {
