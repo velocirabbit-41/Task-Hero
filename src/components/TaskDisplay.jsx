@@ -36,7 +36,7 @@ const TaskDisplay = () => {
 
   // create the list of divs from taskList to be rendered
   return (
-    <div className='task-display'>
+    <div >
       <h3>All tasks</h3>
       <div className='task-display'>
         <TaskCard />
