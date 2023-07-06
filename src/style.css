@@ -128,8 +128,10 @@ form {
   border-left: darkred 10px solid;
   padding: 10px;
   margin: 10px;
-  min-width: 200px;
+  width: 200px;
   border-radius: 5px;
+  flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .task-card p {

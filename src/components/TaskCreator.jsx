@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const TaskCreator = () => {
+const TaskCreator = (props) => {
   console.log('task creator test')
 
   const [data, setData] = useState({
@@ -26,6 +26,21 @@ const TaskCreator = () => {
     taskObj.task = document.getElementById("task").value;
     taskObj.status = 0;
     console.log("taskObj",taskObj);
+
+    fetch('http://localhost:3000/task/', {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(taskObj),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .catch((err) => {
+        console.log("task failed to post");
+      });
   }
 
   return(
@@ -33,6 +48,7 @@ const TaskCreator = () => {
     <div >
       <h3>Create a new task</h3>
       <div className='task-creator'>
+
 
       {/* onSubmit="return false" */}
       <form >
@@ -45,9 +61,7 @@ const TaskCreator = () => {
 
           <div className="new-col">
             <input type="text" id="task" value= {data.task} onChange={(e) => setData({...data, task: e.target.value})}></input><br/><br/>
-            {/* <input type="date" id="date"></input><br/><br/> */}
             <input type="text" id="assigned" value={data.assignedTo} onChange = {(e) => setData({...data, assignedTo : e.target.value})}></input><br/><br/>
-            {/* <input type="text" id="owner"></input><br/><br/> */}
           </div>
 
           <div className="form-items">

@@ -130,8 +130,12 @@ taskController.updateUserAndStatus = (req, res, next) => {
 // CRUD: Delete
 taskController.deleteTask = (req, res, next) => {
   const queryText = 'DELETE FROM tasks WHERE task_id=$1 RETURNING *;';
-  const { task, user, status, task_id } = req.body;
-  const queryParams = [task_id];
+  // const { task, user, status, task_id } = req.body;
+  const {id} = req.query
+  console.log(req.params)
+  // const { task_id } = req.body;
+  // const queryParams = [task_id];
+  const queryParams = [id];
   db.query(queryText, queryParams)
     .then((data) => {
       console.log(data.rows);

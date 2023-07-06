@@ -7,8 +7,6 @@ const taskOutline = {
   task_id: "",
   status: "",
 };
-// fetch reques / task
-// delete
 
 const TaskCard = (props) => {
   const [taskList, setTaskList] = useState([]);
@@ -25,32 +23,37 @@ const TaskCard = (props) => {
 
   }, []);
 
-  /*
-      task_content
-      assigned_to
-      created_by
-      task_id
-      status
-  */
-
   function editCard() {
-      console.log('edit Card func called');
-      // destructure
-      // update state
-      
-      // print the card info
+      console.log('Edit Card button clicked');
+      // incomplete: use this func to update SQL row
     }
     
-    const markDone = () => {
-      console.log('markDone called')
-      // print the card info
+  const markDone = (e) => {
+    // e.target.id
+    console.log('markDone called')
+    console.log(props.task_id)
+    fetch(`http://localhost:3000/task?id=${props.task_id}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(props.task_id),
+      // console.log('received')
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .catch((err) => {
+        console.log("task failed to delete");
+      });
   };
 
 /* creator, user, task, status */
 /* task_id, assigned_to, task, status */
 
 const statusObj = {
-  0 : "Unassigned", 
+  0 : "Not started", 
   1 : "ToDo/Assigned",
   2 : "In Progress",
   3 : "For Review",
@@ -62,7 +65,7 @@ const statusObj = {
       <p className='taskName'> Task: {props.task_content}</p>
       <p className='taskBody'> Created by: {props.created_by}</p>
       <p className='taskBody'> Assigned to: {props.assigned_to}</p>
-      <p className='taskBody'> Assigned to: {statusObj[props.status]}</p>
+      <p className='taskBody'> Status: {statusObj[props.status]}</p>
       <div className='buttons'>
         <div className='cardBtn' onClick={editCard}>
           Edit
