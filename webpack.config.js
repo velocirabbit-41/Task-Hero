@@ -1,6 +1,7 @@
 const path = require('path');
 //we require html plugin so we can add html to app (mpn install it first tho)
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   //entry is where webpack starts to build dependency graph
@@ -15,6 +16,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
     }),
+    new Dotenv(),
   ],
 
   mode: process.env.NODE_ENV,
