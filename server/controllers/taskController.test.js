@@ -1,36 +1,89 @@
+const { Pool } = require('pg');
 // import object to test
 const taskController = require('./taskController');
-const path = require('path');
-const db = require('../models/taskModels'); // update to URI? depends on db config
-const fs = require('fs');
+// const path = require('path');
+// const fs = require('fs');
+
+const PG_URI =
+'postgres://lzpoickb:TYTZ421TSgLQPUTdLq1sBRxipxEnvVPw@lallah.db.elephantsql.com/lzpoickb';
+
+// create a new pool here using the connection string above
+const pool = new Pool({
+  connectionString: PG_URI,
+});
+
+// const query= pool.query(text, params, callback);
+
+
 
 // create path to test JSON file
-const testJsonFile = path.resolve(__dirname, './taskController.test.json');
+// const testJsonFile = path.resolve(__dirname, './taskController.test.json');
 
 // describe block for taskController tests
 describe('taskController tests', () => {
     // fake task list
-    const fakeTaskList = [
-        { task_id: 1, task_content: 'Task 1', status: 'Pending' },
-        { task_id: 2, task_content: 'Task 2', status: 'Completed' },
-        { task_id: 3, task_content: 'Task 3', status: 'Pending' },
-      ];
+    
+    const fakeTable1 = [ 1, 'Alana',  'Dawit', 'Pending', 'Task 1' ];
+    const fakeTable2 = [ 2, 'Dawit', 'Josh', 'Completed', 'Task 2' ];
+    const fakeTable3 = [ 3,  'Josh',  'Cameron', 'Pending', 'Task 3' ];
+    // query
+    const createFakeTaskQuery= 'INSERT INTO tasks (task_id,created_by,assigned_to, status, task_content) VALUES ($1, $2, $3,$4,$5) RETURNING *;';
+    
+
+
+    // to create a table in postgres use the query below
+    const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS tasks (
+      id SERIAL PRIMARY KEY,
+      created_by VARCHAR(50),
+      assigned_to VARCHAR(50),
+      status  INTEGER,
+      task_content VARCHAR(50)
+    )
+  `;
+
+    pool.query(createTableQuery).then(() => {console.log('table created successfully')
+        }).catch(err => console.log(err))
+ // Close the connection pool
+  });
+    
+
+
+
+
+    pool.query(createFakeTaskQuery, fakeTable1).then((data) => {
+        console.log(data)
+    })
+      // ALL FIELDS
+      // task_id
+      // created_by
+      // assigned_to
+      // status
+      // task_content
+
 
     // beforeAll to set up any necessary test environment
-    beforeAll((done) => {
+    beforeAll(async () => {
         // set up necessary test environment
         // set up database connection
-        connection = db.connect();
-        fs.writeFile(testJsonFile, JSON.stringify([]), () => {
-            db.reset();
-            done();
+
+        // DELETE FROM table_name;
+       await pool.connect((err, client, done) => {
+        if (err) {
+            console.error('Error connecting to the database: ', err);
+        } else {
+            console.log('Connected to the database');
+        }
+       });
+
+       pool.query('DELETE FROM task')
         });
     });
 
     // use afterAll to clean up any test environment after all the tests have run
-    afterAll((done) => {
+    afterAll(async () => {
         // clean up test environment
-        fs.writeFile(testJsonFile, JSON.stringify([]), done);
+        await pool.end();
     });
 
 
@@ -40,13 +93,16 @@ describe('taskController tests', () => {
     // expected outcome: the 'test' property in res.locals should contain the fake task list
     // assertion: the actual result to match the expected outcome
     describe('getTasks', () => {
-        it('should retrieve tasks from the JSON file', () => {
+        it('should retrieve tasks from the task table in the SQL database ', async () => {
+            
+            
+
             const req = {};
             const res = {
                 locals: {},
             };
             // mimic the request and response objects that the function expects to receive when it is called
-            taskController.getTasks(req, res, () => {
+            await taskController.getTasks(req, res, () => {
                 // compare the value of what is in locals to the fake task list
                 expect(res.locals.test).toEqual(fakeTaskList);
             });
@@ -125,7 +181,7 @@ describe('taskController tests', () => {
             expect(res.locals.taskEdited[0].task_content).toEqual(updatedTaskContent);
         });
 
-        it('should update status'), () => {
+        it('should update status', () => {
             const updatedStatus = 'Complete';
             // create a mock request object with necessary properties
             const req = {
@@ -156,9 +212,9 @@ describe('taskController tests', () => {
             expect(res.locals.statusEdited.length).toBe(1);
             // assertion #4: expect the status property to be updated with the new value
             expect(res.locals.statusEdited[0].status).toEqual(updatedStatus);
-        }
+        });
 
-        it('should update user'), () => {
+        it('should update user', () => {
             const updatedUser = 'Joshua Hall';
             // create a mock request object with necessary properties
             const req = {
@@ -189,7 +245,7 @@ describe('taskController tests', () => {
             expect(res.locals.userEdited.length).toBe(1);
             // assertion #4: expect the user property to be updated with the new value
             expect(res.locals.userEdited[0].status).toEqual(updatedUser);
-        }
+        });
     });
 
     // describe block for deleting a task
@@ -227,4 +283,3 @@ describe('taskController tests', () => {
             expect(updatedTasksLength).toBe(originalTasksLength);
         });
     });
-});
